@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"learnProject/configs"
+	"learnProject/pkg/response"
 	"net/http"
 )
 
@@ -17,8 +18,8 @@ func NewAuthHandler(router *http.ServeMux, deps AuthHandlerDeps) {
 	authHandler := &AuthHandler{
 		Config: deps.Config,
 	}
-	router.HandleFunc("POST /auth/login", authHandler.Login())
-	router.HandleFunc("POST /auth/register", authHandler.Register())
+	router.HandleFunc("/auth/login", authHandler.Login())
+	router.HandleFunc("/auth/register", authHandler.Register())
 }
 
 func (handler *AuthHandler) Register() http.HandlerFunc {
@@ -29,6 +30,9 @@ func (handler *AuthHandler) Register() http.HandlerFunc {
 
 func (handler *AuthHandler) Login() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Login")
+		res := LoginResponse{
+			Token: "123",
+		}
+		response.Json(res, w, http.StatusOK)
 	}
 }
