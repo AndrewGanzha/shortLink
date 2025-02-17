@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"encoding/json"
 	"fmt"
 	"learnProject/configs"
 	"learnProject/pkg/response"
@@ -31,11 +30,7 @@ func (handler *AuthHandler) Register() http.HandlerFunc {
 
 func (handler *AuthHandler) Login() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var payload LoginRequest
-		err := json.NewDecoder(r.Body).Decode(&payload)
-		if err != nil {
-			response.Json(err.Error(), w, http.StatusBadRequest)
-		}
+
 		res := LoginResponse{
 			Token: "123",
 		}
