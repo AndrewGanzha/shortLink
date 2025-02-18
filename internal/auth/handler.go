@@ -1,8 +1,8 @@
 package auth
 
 import (
-	"fmt"
 	"learnProject/configs"
+	"learnProject/pkg/request"
 	"learnProject/pkg/response"
 	"net/http"
 )
@@ -24,13 +24,25 @@ func NewAuthHandler(router *http.ServeMux, deps AuthHandlerDeps) {
 
 func (handler *AuthHandler) Register() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Register")
+		_, err := request.HandleBody[RegisterRequest](&w, r)
+
+		if err != nil {
+			return
+		}
+		res := LoginResponse{
+			Token: "123",
+		}
+		response.Json(res, w, http.StatusOK)
 	}
 }
 
 func (handler *AuthHandler) Login() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		_, err := request.HandleBody[LoginRequest](&w, r)
 
+		if err != nil {
+			return
+		}
 		res := LoginResponse{
 			Token: "123",
 		}
