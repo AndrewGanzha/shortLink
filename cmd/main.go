@@ -10,12 +10,15 @@ import (
 
 func main() {
 	conf := configs.LoadConfig()
-	_ = db.NewDb(conf)
+	db := db.NewDb(conf)
 	router := http.NewServeMux()
+
+	//Repositories
+	linksRepository := links.NewLinkRepository(db)
 
 	//Handler
 	auth.NewAuthHandler(router, auth.AuthHandlerDeps{Config: conf})
-	links.NewLinkHandler(router, links.LinkHandlerDeps{Config: conf})
+	links.NewLinkHandler(router, links.LinkHandlerDeps{LinkRepository: linksRepository})
 
 	server := http.Server{
 		Addr:    ":8080",

@@ -1,11 +1,11 @@
 meta {
-  name: Register
+  name: LoginAuth
   type: http
-  seq: 3
+  seq: 1
 }
 
 post {
-  url: http://localhost:8080/auth/register
+  url: http://localhost:8080/auth/login
   body: json
   auth: none
 }
@@ -13,7 +13,6 @@ post {
 body:json {
   {
     "email": "ganzha-2002@mail.ru",
-    "password": "aboba",
-    "email": "andrew"
+    "password": "ganzha-2002@mail.ru"
   }
 }
