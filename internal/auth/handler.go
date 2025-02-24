@@ -18,8 +18,8 @@ func NewAuthHandler(router *http.ServeMux, deps AuthHandlerDeps) {
 	authHandler := &AuthHandler{
 		Config: deps.Config,
 	}
-	router.HandleFunc("/auth/login", authHandler.Login())
-	router.HandleFunc("/auth/register", authHandler.Register())
+	router.HandleFunc("POST /auth/login", authHandler.Login())
+	router.HandleFunc(" POST /auth/register", authHandler.Register())
 }
 
 func (handler *AuthHandler) Register() http.HandlerFunc {
