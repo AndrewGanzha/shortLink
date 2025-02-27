@@ -1,0 +1,17 @@
+meta {
+  name: CreateLink
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/link
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "https://testik.ru"
+  }
+}
