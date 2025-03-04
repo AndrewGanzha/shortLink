@@ -4,8 +4,14 @@ meta {
   seq: 4
 }
 
-get {
-  url: 
-  body: none
+patch {
+  url: http://localhost:8080/link/2
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "url": "https://testikkk.ru"
+  }
 }

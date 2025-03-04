@@ -1,7 +1,6 @@
 package links
 
 import (
-	"fmt"
 	"gorm.io/gorm"
 	"learnProject/pkg/request"
 	"learnProject/pkg/response"
@@ -73,8 +72,32 @@ func (handler *LinkHandler) Update() http.HandlerFunc {
 
 func (handler *LinkHandler) Delete() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		id := r.PathValue("id")
-		fmt.Println(id)
+		idString := r.PathValue("id")
+		id, err := strconv.ParseUint(idString, 10, 32)
+		_, err = handler.LinkRepository.GetById(uint(id))
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		err = handler.LinkRepository.Delete(uint(id))
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		response.Json(nil, w, http.StatusOK)
+	}
+}
+
+func (handler *LinkHandler) FindById(id uint64) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
 	}
 }
 
