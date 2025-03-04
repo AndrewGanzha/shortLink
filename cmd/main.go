@@ -5,6 +5,7 @@ import (
 	"learnProject/internal/auth"
 	"learnProject/internal/links"
 	"learnProject/pkg/db"
+	"learnProject/pkg/middleware"
 	"net/http"
 )
 
@@ -22,7 +23,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    ":8080",
-		Handler: router,
+		Handler: middleware.Logging(router),
 	}
 	server.ListenAndServe()
 }
