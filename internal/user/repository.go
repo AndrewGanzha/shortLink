@@ -20,9 +20,9 @@ func (repo *UserRepository) CreateUser(user *User) (*User, error) {
 	return user, nil
 }
 
-func (repo *UserRepository) GetUserByEmail(email string) (*User, error) {
+func (repo *UserRepository) GetByEmail(email string) (*User, error) {
 	var user User
-	result := repo.Database.Where(&user, "email = ?", email).First(&User{})
+	result := repo.Database.First(&user, "email = ?", email)
 	if result.Error != nil {
 		return nil, result.Error
 	}
