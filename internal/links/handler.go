@@ -2,6 +2,7 @@ package links
 
 import (
 	"gorm.io/gorm"
+	"learnProject/pkg/middleware"
 	"learnProject/pkg/request"
 	"learnProject/pkg/response"
 	"net/http"
@@ -20,7 +21,7 @@ func NewLinkHandler(router *http.ServeMux, deps LinkHandlerDeps) {
 		LinkRepository: deps.LinkRepository,
 	}
 	router.HandleFunc("POST /link", linkHandler.Create())
-	router.HandleFunc("PATCH /link/{id}", linkHandler.Update())
+	router.Handle("PATCH /link/{id}", middleware.IsAuthed(linkHandler.Update()))
 	router.HandleFunc("DELETE /link/{id}", linkHandler.Delete())
 	router.HandleFunc("GET /{hash}", linkHandler.GoTo())
 }

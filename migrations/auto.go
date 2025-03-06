@@ -5,6 +5,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"learnProject/internal/links"
+	"learnProject/internal/user"
 	"os"
 )
 
@@ -18,5 +19,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db.AutoMigrate(&links.Link{})
+	db.AutoMigrate(&links.Link{}, &user.User{})
 }

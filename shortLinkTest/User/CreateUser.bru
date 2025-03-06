@@ -1,23 +1,19 @@
 meta {
-  name: Register
+  name: CreateUser
   type: http
-  seq: 2
+  seq: 1
 }
 
 post {
-  url: http://localhost:8080/auth/register
+  url: http://localhost:8080/user/create
   body: json
   auth: none
-}
-
-headers {
-  Authorization: Bearer SDFDSFD
 }
 
 body:json {
   {
     "email": "ganzha-2002@mail.ru",
-    "name": "Andrew",
+    "username": "Andrew",
     "password": "aboba"
   }
 }
