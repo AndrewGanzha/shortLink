@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"learnProject/configs"
 	"learnProject/pkg/request"
 	"learnProject/pkg/response"
@@ -39,11 +40,14 @@ func (handler *AuthHandler) Register() http.HandlerFunc {
 
 func (handler *AuthHandler) Login() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		_, err := request.HandleBody[LoginRequest](&w, r)
+		body, err := request.HandleBody[LoginRequest](&w, r)
 
 		if err != nil {
 			return
 		}
+		email, err := handler.AuthService.Login(body.Email, body.Password)
+		fmt.Println(email)
+		fmt.Println(err)
 		res := LoginResponse{
 			Token: "123",
 		}
